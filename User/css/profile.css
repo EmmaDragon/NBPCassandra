@@ -1,0 +1,15 @@
+
+.input-group-prepend span{
+width: 180px;
+background-color: #4e73df;
+color: black;
+border:0 !important;
+}
+
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+
