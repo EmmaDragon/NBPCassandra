@@ -347,7 +347,7 @@ $queryString="UPDATE mycloudstore2019.user SET confirm = 0 WHERE email= '$id'";
         $cluster   = Cassandra::cluster()->build();
         $keyspace  = 'mycloudstore2019';
         $session   = $cluster->connect($keyspace); 
-        $queryString="SELECT * from mycloudstore2019.filesbyname WHERE nameoffile='$nameOfFile' AND user='$idUser'";
+        $queryString="SELECT * from mycloudstore2019.filesbyname WHERE nameoffile ='$nameOfFile' AND user='$idUser'";
         $statement = new Cassandra\SimpleStatement($queryString);
         $result    = $session->execute($statement);
         $files=array();

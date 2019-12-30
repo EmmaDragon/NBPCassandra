@@ -85,10 +85,22 @@ function getDataAboutActivityOfUser()
 function showResult(res) 
 {
     document.getElementById("lastLogIn").innerHTML="Last Login: "+res.logIn;
-    document.getElementById("lastLogOut").innerHTML="Last Logout: "+res.logOut;
-    document.getElementById("lastUpload").innerHTML="Last Upload: "+res.upload;
-    document.getElementById("lastDownload").innerHTML="Last Downlaod: "+res.downlaod;
-    document.getElementById("lastDelete").innerHTML="Last Delete: "+res.delete;
+    if(res.logOut==null)
+        document.getElementById("lastLogOut").innerHTML="Last Logout: /";
+    else
+        document.getElementById("lastLogOut").innerHTML="Last Logout: "+res.logOut;
+    if(res.upload==null)
+        document.getElementById("lastUpload").innerHTML="Last Upload: / ";
+    else
+        document.getElementById("lastUpload").innerHTML="Last Upload: "+res.upload;
+    if(res.downlaod==null)
+        document.getElementById("lastDownload").innerHTML="Last Downlaod: /";
+    else
+        document.getElementById("lastDownload").innerHTML="Last Downlaod: "+res.downlaod;
+    if(res.delete==null)
+        document.getElementById("lastDelete").innerHTML="Last Delete: /";
+    else
+        document.getElementById("lastDelete").innerHTML="Last Delete: "+res.delete;
 }
 function getDataAboutUser()
 {

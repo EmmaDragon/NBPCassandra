@@ -127,7 +127,7 @@ function showResult(res,nameOfChart)
   data: {
     labels: ["January", "February", "March", "April", "May", "June","July","August","September","October","November","December"],
     datasets: [{
-      label: "Revenue",
+      label: "Score",
       backgroundColor: "#4e73df",
       hoverBackgroundColor: "#2e59d9",
       borderColor: "#4e73df",

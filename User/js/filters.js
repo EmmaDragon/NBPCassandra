@@ -13,7 +13,7 @@ getDataAboutUser();
 filter.addEventListener('change',function(e){
     if(filter.value=="sizeOfFile")
     {
-        document.getElementById("filterLabel").innerHTML="Value:";
+        document.getElementById("filterLabel").innerHTML="Value (KB):";
         document.getElementById("filterValue").style.display="block";
         let html="<label for='comment'>Range:</label>"+
         "<select class='form-control' id='fileSize'>"+
@@ -35,6 +35,9 @@ filter.addEventListener('change',function(e){
         "<option value='.jpg'>*jpg</option>"+
         "<option value='.jpeg'>*jpeg</option>"+
         "<option value='.js'>*js</option>"+
+        "<option value='.css'>*css</option>"+
+        "<option value='.c'>*c</option>"+
+        "<option value='.cpp'>*cpp</option>"+
         "</select>";
         document.getElementById("tmpFilter").innerHTML=html;
         document.getElementById("tmpFilter").style.width="450px";

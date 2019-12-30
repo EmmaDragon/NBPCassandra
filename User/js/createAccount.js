@@ -66,7 +66,7 @@ function postojiKorisnik(user){
     formData.append("Email",document.querySelector("input[name='email']").value);
     formData.append("Password",document.getElementById("sifra").value);
     var freeSpace=2147483648;
-    formData.append("FreeSpace",freeSpace);//2 GB praznog prostora -> u bajtove
+    formData.append("FreeSpace",freeSpace);//2 GB praznog prostora -> u bajtovima
    
        
      const fetchData =
