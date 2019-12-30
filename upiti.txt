@@ -1,0 +1,82 @@
+NAPOMENA: 
+1. Unos podataka obavljen iz aplikacije.
+2. Filtriranje fajlova na osnovu imena se vrsi tako sto se unese pun naziv imena fajla (sa ekstenzijom).
+3. Prilikom download-a fajla neophodno je selektovati fajl (txt) u kome se na nalazi key za zeljeni fajl (ovaj fajl se pamti na client strani kada se fajl upload-uje).
+4. Kako bi Knapsack algoritam enkriptovao fajl treba izabrati odgovarajuci superrastuci niz zajedno za n i r parametrima i uneti ga u polje Key prilikom upload-a.
+5. Za XXTEA i PCBC u polje Key treba uneti string (password) za enkripciju.
+6. Za SimpleSubstitution aplikacija sama generise sifru.
+
+//---------------------------------------------------- KREIRANJE KEYSPACE-A------------------------------------------------------------------------------//
+
+
+CREATE KEYSPACE mycloudstore2019 WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 3};
+
+
+//---------------------------------------------------- PAMTE SE PODACI O FAJLOVIMA ----------------------------------------------------------------------//
+
+create table files ( user text, nameoffile text, content blob, crc blob, date text, PRIMARY KEY((user),nameoffile));
+
+
+//---------------------------------------------------- PAMTE SE PODACI O KORISNIKU ----------------------------------------------------------------------//
+
+create table user ( email text, firstName text, lastName text, password text, freeSpace double, confirm int, PRIMARY KEY(email));
+
+
+//----------------------------------------------------- PAMTI SVE KORAKE RADA SA FAJLOVIMA KORISNIKA ----------------------------------------------------//
+
+
+create table useractivity(user text, nameoffile text, date text, state text, PRIMARY KEY ((user),date,nameoffile));
+
+
+//----------------------------------------------------- PAMTI POSLEDNJI LOGIN, LOGOUT, DELTE ... ----------------------------------------------------//
+
+create table activityOfUser ( user text, logIn text, logOut text, download text, upload text, deleteFile text, PRIMARY KEY (user));
+
+//----------------------------------------------------- PAMTI VREME SVIH LOGINOVA KORISNIKA ----------------------------------------------------------------//
+
+create table logIn(user text, date text, PRIMARY KEY((user),date));
+
+//----------------------------------------------------- PAMTI SVE LOGOUTOVE KORISNIKA---------------------------------------------------------------//
+
+
+create table logOut(user text, date text, PRIMARY KEY((user),date));
+
+
+//-----------------------------------------------------FILTRIRANJE PO IMENU FAJLA------------------------------------------------------------------//
+
+
+create table filesByName(nameOfFile text,date text, size double, user text, PRIMARY KEY((user),nameOfFile));
+
+
+//-----------------------------------------------------FILTRIRANJE PO EKSTENZIJI FAJLA-------------------------------------------------------------//
+
+
+create table filesByExt(nameOfFile text,extension text, size double,date text, user text, PRIMARY KEY((user),extension,nameOfFile));
+
+
+//-----------------------------------------------------FILTRIRANJE PO VELICINI FAJLA---------------------------------------------------------------//
+
+
+create table filesBySize(nameOfFile text, size double,date text, user text, PRIMARY KEY((user),size,nameOfFile));
+
+
+//-----------------------------------------------------FILTRIRANJE PO DATUMU MODIFIKACIJE FAJLA----------------------------------------------------//
+
+
+create table filesByDate(nameOfFile text, size double,date text, user text, PRIMARY KEY((user),date));
+
+
+//---------------------------------------------------- PAMTI DATUME SVIH UPLOAD-A ZBOG STATISTIKE -------------------------------------------------//
+
+create table uploaded ( user text, date text,nameoffile text,comment text, PRIMARY KEY((user),date));
+
+//-------------------------------------------------- SVI DOWNLOAD-i------------------------------------------------------------------------//
+
+create table downloaded ( user text, date text,nameoffile text,comment text, PRIMARY KEY((user),date));
+
+//-------------------------------------------------- SVI DELETE-ovi--------------------------------------------------------------------//
+
+create table deleted ( user text, date text,nameoffile text,comment text, PRIMARY KEY((user),date));
+
+
+
