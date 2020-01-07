@@ -38,6 +38,7 @@ filter.addEventListener('change',function(e){
         "<option value='.css'>*css</option>"+
         "<option value='.c'>*c</option>"+
         "<option value='.cpp'>*cpp</option>"+
+        "<option value='.pdf'>*pdf</option>"+
         "</select>";
         document.getElementById("tmpFilter").innerHTML=html;
         document.getElementById("tmpFilter").style.width="450px";

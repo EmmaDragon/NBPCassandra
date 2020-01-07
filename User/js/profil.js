@@ -172,6 +172,7 @@ fileUpload.onchange = function(){
    
   
   });*/
+  console.log(this.files[0].type);
     if(this.files[0].type=="image/png" || this.files[0].type=="image/jpeg" || this.files[0].type=="image/jpg" || this.files[0].type=="image/bmp")
     {
         readAsDataURL(this.files[0],function(res)
@@ -204,6 +205,43 @@ fileUpload.onchange = function(){
   
       
              });
+    }
+    else if(this.files[0].type=="application/pdf")
+    {
+        
+        readAsDataURL(this.files[0],function(res)
+        {
+                uploadDocument=res;
+                fileSize=res.toString().length;
+                var nameOfFile=document.getElementById('file-input').value.substring(12,document.getElementById('file-input').value.length);
+                fileName=nameOfFile;
+                
+                //provera da li postoji fajl sa tim imenom
+                const formData = new FormData();
+                formData.append("fileExist","true");
+                formData.append("idUser",sessionStorage["id"]);
+                formData.append("fileName",nameOfFile);
+                const fetchData =
+                {
+                    method:"POST",
+                    body: formData
+                }
+                 fetch("../php/server.php",fetchData)
+                .then(response =>
+                {
+                   if(!response.ok)
+                     throw new Error(response.statusText);
+                   else
+                      return response.json();
+
+                    }).then((exist) => {daLiVecPostoji(exist,res.toString())})
+
+                .catch(error => console.log(error));
+  
+      
+             });
+        
+        
     }
 else
 {
@@ -388,11 +426,18 @@ function SaveFile(file)
     //Ispitivanje ekstenzije biramo nacin cuvanja fajlova
     
     if( fileNameForDownload.lastIndexOf(".jpeg")==-1 && fileNameForDownload.lastIndexOf(".jpg")==-1 
-            && fileNameForDownload.lastIndexOf(".png")==-1 && fileNameForDownload.lastIndexOf(".bmp")==-1 )
+            && fileNameForDownload.lastIndexOf(".png")==-1 && fileNameForDownload.lastIndexOf(".bmp")==-1
+            && fileNameForDownload.lastIndexOf(".pdf")==-1 )
     {
         var name = fileNameForDownload;
         blob = new Blob([file], {type: "text/plain;charset=utf-8"});
         saveAs(blob, name);
+    }
+    else if(fileNameForDownload.lastIndexOf(".pdf")!=-1)
+    {
+
+           var name = fileNameForDownload;
+            saveAs(file, name);       
     }
     else
     {
