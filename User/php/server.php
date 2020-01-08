@@ -182,6 +182,14 @@ else if(isset($_POST["allLogOut"]))
     echo json_encode($result);
 
 }
+else if(isset($_POST["allLogInOut"]))
+{
+    $result=array();
+    array_push($result,$base->getAllLogIn($_POST["idUser"]));
+    array_push($result,$base->getAllLogOut($_POST["idUser"]));
+    echo json_encode($result);
+
+}
 else if(isset($_POST["statistics"]))
 {
     $result=null;
