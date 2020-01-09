@@ -218,3 +218,19 @@ else if(isset($_POST["allDeleted"]))
     echo json_encode($result);
 
 }
+else if(isset($_POST["addComment"]))
+{
+    $date=date("Y/m/d");
+    $time=date("h:i:sa");
+    $dateAndTime=$date." ".$time;     
+    $comment = new Comment($_POST["firstName"],$_POST["lastName"],$_POST["idUser"],$_POST["comment"],$dateAndTime);
+    $result=$base->addComment($comment);
+    
+
+}
+else if(isset($_POST["allComments"]))
+{
+    $result=$base->getAllComments();
+    echo json_encode($result);
+
+}

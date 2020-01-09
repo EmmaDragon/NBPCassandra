@@ -79,4 +79,6 @@ create table downloaded ( user text, date text,nameoffile text,comment text, PRI
 create table deleted ( user text, date text,nameoffile text,comment text, PRIMARY KEY((user),date));
 
 
+//------------------------------------------------- PAMTI SVE UTISKE KORISNIKA ------------------------------------------------------//
 
+create table comments ( user text,firstName text,lastName text, date text, comment text, PRIMARY KEY((user),date));

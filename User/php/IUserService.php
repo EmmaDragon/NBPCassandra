@@ -40,6 +40,8 @@ interface IUserService {
     function getAllUploaded($idUser);
     function getAllDownloaded($idUser);
     function getAllDeleted($idUser);
+    function addComment($comment);
+    function getAllComments();
     
 
 

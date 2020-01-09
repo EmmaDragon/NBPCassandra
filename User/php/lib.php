@@ -11,6 +11,7 @@ include_once 'File.php';
 include_once 'UserActivity.php';
 include_once 'StatisticObject.php';
 include_once 'InfoObject.php';
+include_once 'Comment.php';
 
 
 class UserService implements IUserService
@@ -724,6 +725,32 @@ $queryString="UPDATE mycloudstore2019.user SET confirm = 0 WHERE email= '$id'";
         foreach($result as $row)
         {
             array_push($objects,new InfoObject($row['user'],$row['nameoffile'],$row['date'],$row['comment']));
+        }
+        return $objects;
+
+    }
+    public function addComment($comment)
+    {
+        $cluster   = Cassandra::cluster()->build();
+        $keyspace  = 'mycloudstore2019';
+        $session   = $cluster->connect($keyspace); 
+        $queryString="INSERT INTO mycloudstore2019.comments (firstname,lastname,user,comment,date) VALUES ('$comment->firstName','$comment->lastName','$comment->email','$comment->content','$comment->date')";
+        $statement = new Cassandra\SimpleStatement($queryString);
+        $result    = $session->execute($statement);
+
+    }
+    public function getAllComments()
+    {
+        $cluster   = Cassandra::cluster()->build();
+        $keyspace  = 'mycloudstore2019';
+        $session   = $cluster->connect($keyspace); 
+        $queryString="SELECT * FROM mycloudstore2019.comments";
+        $statement = new Cassandra\SimpleStatement($queryString);
+        $result    = $session->execute($statement);
+        $objects=array();
+        foreach($result as $row)
+        {
+            array_push($objects,new Comment($row['firstname'],$row['lastname'],$row['user'],$row['comment'],$row['date']));
         }
         return $objects;
 
