@@ -245,7 +245,7 @@ $(document).ready(function(){
         }],
       },
       legend: {
-        display: true,
+        display: true
         
       },
       tooltips: {
