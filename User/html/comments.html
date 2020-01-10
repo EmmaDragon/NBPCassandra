@@ -147,22 +147,24 @@
          <div class="card shadow mb-4 ml-4 mr-4" >
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">List of comments</h6>
+              <label for="comment">The box below contains user impressions for the current year only.<br>
+                If you want to read all the impressions of the user, click the <strong>All Comments</strong> button.</label>
+           
             </div>
                <div class="card-body mojaKlasa"  id="father" style="display: block;height: 450px;overflow: scroll;">
-               <div id="emptyPicDiv">
-               <div style="margin-top: 10%; margin-bottom: 10%; margin-left:130%;">
-                   <img src='https://img.icons8.com/clouds/150/000000/edit-folder.png'>
-               </div>
-               </div>
+
 
                </div>
              
          </div>
-         <div style="float: right; height: 50%;width: 50%;">
+         <div style=" display:block; float: right; height: 50%;width: 50%;">
              <label for="comment">Leave comment:</label>
              <textarea class="form-control mb-4" rows="3" id="myComment" ></textarea>
-             <button class="btn btn-primary  " id="saveComment" style="width:250px; float:right;">Save</button>  
-         </div>
+             <div style="display:flex;flex-direction:column; float: right; ">
+             <button class="btn btn-primary mb-2 " id="saveComment" style="width:250px; float:right;">Save</button>  
+             <button class="btn btn-primary mb-2 " id="saveToTxt" style="width:250px; float:right">All Comments</button>  
+            </div>
+            </div>
     
                      
             
@@ -261,6 +263,7 @@
   
    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="../js/FileSaver.js"  ></script>
   
     
    <script src="../js/comments.js"></script>

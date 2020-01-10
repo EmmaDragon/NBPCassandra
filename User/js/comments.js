@@ -2,12 +2,50 @@ const aboutUser=document.getElementById("user");
 const register=document.getElementById("confirm");
 const logOut=document.getElementById("logOut");
 const saveButton=document.getElementById("saveComment");
+const saveToTxt=document.getElementById("saveToTxt");
 
 logOut.onclick=(ev)=>leavePage();
 saveButton.onclick=(ev)=>addComment();
-
+saveToTxt.onclick=(ev)=>saveTxt();
 getDataAboutUser();
 getAllComments();
+function saveTxt()
+{
+    const formData = new FormData();
+    formData.append("allComments","true");
+    const fetchData =
+    {
+        method:"POST",
+        body: formData
+    };
+
+         fetch("../php/server.php",fetchData)
+            .then(response =>
+           {
+               if(!response.ok)
+                 throw new Error(response.statusText);
+               else
+                  return response.json();
+
+            }).then((res) => createTxt(res))
+
+            .catch(error => console.log(error));
+
+}
+
+function createTxt(res)
+{
+    let file ="";
+    res.forEach(el=>{
+        file+=el.firstName+" "+el.lastName+" ("+el.date+") "+"\n";
+        file+=el.email+"\n";
+        file+="Comment: "+el.content+"\n";
+        file+="--------------------------------------------------------------------------------------------------------------------------------------------------\n";
+    });
+    var name = "AllComments-MyCloudStore.txt";
+    blob = new Blob([file], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, name);
+}
 function addComment()
 {
     if(document.getElementById("myComment").value=="")
@@ -75,17 +113,19 @@ function showResult(res)
        
          if(res.length==0)
          {
-             document.getElementById("father").innerHTML="<div id='emptyPicDiv'>\n\
-             <div style='margin-top: 10%; margin-bottom: 10%; margin-left:130%;' >\n\
+             document.getElementById("father").innerHTML="<div style='margin-top: 10%; margin-bottom: 10%; margin-left:45%; margin-right:55%;' >\n\
             <img src='https://img.icons8.com/clouds/150/000000/edit-folder.png'>\n\
-            </div></div>";
+            </div>";
          }
          else
          {
             document.getElementById("father").innerHTML="";
+            var d = new Date();
+            var cuurYear = d.getFullYear();
             res.forEach((el)=>
             {
-                
+                if(cuurYear==(el.date).substring(-1,4))
+                {
                 let kontenjer=document.createElement("div");
                 //kontenjer.align='left';
                 kontenjer.className="toast fade show";
@@ -116,6 +156,7 @@ function showResult(res)
                 kontenjer.appendChild(zaglavlje);
                 kontenjer.appendChild(telo);
                 document.getElementById("father").appendChild(kontenjer);
+                }
             });
             
          }
