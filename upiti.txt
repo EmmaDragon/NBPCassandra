@@ -1,5 +1,6 @@
 NAPOMENA: 
-1. Unos podataka obavljen iz aplikacije.
+1. Unos podataka obavljen iz aplikacije.(U pfajlovima UserData.txt,CommentsData.txt... se nalaze podaci za import u odgovarajuce tabele radi lakseg testiranja.(COPY [table_name] FROM 'file_name';)) 
+(sifra za emilija.s.simic@gmail.com -> Ema123456, a za djorovicfilip@gmail.com -> Filip123456)
 2. Filtriranje fajlova na osnovu imena se vrsi tako sto se unese pun naziv imena fajla (sa ekstenzijom).
 3. Prilikom download-a fajla neophodno je selektovati fajl (txt) u kome se na nalazi key za zeljeni fajl (ovaj fajl se pamti na client strani kada se fajl upload-uje).
 4. Kako bi Knapsack algoritam enkriptovao fajl treba izabrati odgovarajuci superrastuci niz zajedno za n i r parametrima i uneti ga u polje Key prilikom upload-a.
@@ -69,6 +70,7 @@ create table filesByDate(nameOfFile text, size double,date text, user text, PRIM
 //---------------------------------------------------- PAMTI DATUME SVIH UPLOAD-A ZBOG STATISTIKE -------------------------------------------------//
 
 create table uploaded ( user text, date text,nameoffile text,comment text, PRIMARY KEY((user),date));
+
 
 //-------------------------------------------------- SVI DOWNLOAD-i------------------------------------------------------------------------//
 
